@@ -26,3 +26,5 @@
     - nginx
     - role: mysql
       when: parameters['mysql'] is defined
+    - role: memcached
+      when: parameters['memcached'] is defined

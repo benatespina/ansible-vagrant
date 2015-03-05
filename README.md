@@ -26,6 +26,7 @@ This box contains the following:
 * Nginx with SSL support
 * MySQL
 * Composer
+* Memcached
 
 Prerequisites
 -------------
@@ -72,6 +73,7 @@ mysql:
   user:          user
   password:      123
   database:      defaultDB
+memcached: ~
 ```
 
 Then, you have to build the *Vagrant* machine and then, you have to connect via **ssh** to the VM with the following commands:
