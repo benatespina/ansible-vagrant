@@ -1,0 +1,55 @@
+---
+- name: Add PHP ppa Repository
+  sudo: yes
+  apt_repository: repo=ppa:ondrej/{{ php_ppa }}
+- name: Install PHP packages
+  run_once: true
+  apt: name={{ item }} state=present
+  with_items:
+    - php5
+    - php5-cli
+    - php5-imagick
+    - php5-curl
+    - php5-gd
+    - php5-fpm
+    - php5-memcached
+    - php5-mysql
+    - php5-pgsql
+    - php5-xdebug
+    - phpunit
+    - php-pear
+    - php5-mcrypt
+    - php5-intl
+- name: Install PECL packages
+  apt: pkg="php5-dev" state=present
+
+- name: Install Package
+  shell: echo "\n\n\n\n\n\n\n\n\n" | pecl install {{ item }}
+  register: pecl_result
+  changed_when: "'already installed' not in pecl_result.stdout"
+  failed_when: "pecl_result.stderr or ('ERROR' in pecl_result.stdout)"
+  with_items: pecl_packages
+
+- name: Create extension .ini file
+  template: >
+    src="extension.tpl"
+    dest="/etc/php5/mods-available/{{ item }}.ini"
+    owner="root"
+    group="root"
+    mode=0644
+  with_items: pecl_packages
+  notify: php5-fpm restart
+
+- name: Enable extesion
+  shell: php5enmod {{ item }}
+  with_items: pecl_packages
+  notify: php5-fpm restart
+
+- name: ensure timezone is set
+  lineinfile: dest=/etc/php5/cli/php.ini
+              regexp='date.timezone ='
+              line='date.timezone = {{ timezone }}'
+  lineinfile: dest=/etc/php5/fpm/php.ini
+              regexp='date.timezone ='
+              line='date.timezone = {{ timezone }}'
+  notify: php5-fpm restart

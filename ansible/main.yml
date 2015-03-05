@@ -1,0 +1,27 @@
+---
+- hosts: all
+  sudo: true
+  vars:
+    hhvmphpswitcher: 127.0.0.1:9000
+  tasks:
+    - name: sets hhvmphpswitcher if switcher is defined
+      set_fact:
+        hhvmphpswitcher: "{{ parameters['php']['switcher'] }}"
+      when: parameters['php'] is defined and parameters['php']['switcher'] is defined
+    - name: sets hhvmphpswitcher with "php" because switcher is not defined
+      set_fact:
+        hhvmphpswitcher: php
+      when: parameters['php'] is defined and parameters['php']['switcher'] is not defined
+  vars_files:
+    - ../parameters.yml
+    - vars/php.yml
+    - vars/server.yml
+  roles:
+    - common
+    - role: hhvm
+      when: parameters['php']['switcher'] is defined and parameters['php']['switcher'] == 'hhvm'
+    - role: php
+      when: parameters['php'] is defined
+    - nginx
+    - role: mysql
+      when: parameters['mysql'] is defined

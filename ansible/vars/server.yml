@@ -1,0 +1,3 @@
+host: "{{ hostname }}.{{ domain }}"
+servername: "{{ host }} {{ ip }}"
+documentroot: "{{ hostpath }}/{{ hostname }}.{{ domain }}/web"

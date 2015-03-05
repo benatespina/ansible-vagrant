@@ -1,0 +1,24 @@
+#### REQUIRED ####
+vm:
+  hostname:     app
+  domain:       localhost
+  hostpath:     /var/www
+  ip:           192.168.10.44
+  port:         8080
+  syncedfolder: nfs         # can be nfs, smb or rsync
+  box:          precise64
+  cpu:          1
+  memory:       512
+
+#### OPTIONAL ####
+php:
+  switcher: hhvm            # can be php or hhvm
+  version:  5.6             # can be 5.4, 5.5 or 5.6
+  pecl:
+    - mongo
+    - redis
+mysql:
+  root_password: root
+  user:          user
+  password:      123
+  database:      defaultDB
