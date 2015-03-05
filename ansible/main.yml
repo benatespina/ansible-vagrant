@@ -14,6 +14,7 @@
       when: parameters['php'] is defined and parameters['php']['switcher'] is not defined
   vars_files:
     - ../parameters.yml
+    - vars/mysql.yml
     - vars/php.yml
     - vars/server.yml
   roles:

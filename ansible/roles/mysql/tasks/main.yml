@@ -1,7 +1,10 @@
 ---
+- name: Add MySQL ppa Repository
+  sudo: yes
+  apt_repository: repo=ppa:ondrej/{{ mysql_ppa }}
 - name: mysql | Install MySQL Packages
   sudo: yes
-  apt: pkg={{ item }} state=latest
+  apt: pkg={{ item }} state=present
   with_items:
     - mysql-server
     - mysql-client

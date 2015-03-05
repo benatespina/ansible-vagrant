@@ -1,0 +1,1 @@
+mysql_ppa: "mysql-{{ mysql.version | default(5.6) }}"
