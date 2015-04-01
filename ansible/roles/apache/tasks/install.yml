@@ -1,0 +1,8 @@
+---
+- name: Add repository to install the correct Apache version
+  apt_repository: repo="{{ apache_repository }}" update_cache=yes
+  when: apacheversion == '2.2'
+- name: Install packages.
+  apt: pkg="{{ item }}" state=present
+  with_items: apache_install
+  when: apache_install != false

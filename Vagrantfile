@@ -39,7 +39,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       ip: VM_IP,
       hostpath: VM_HOSTPATH,
       hostname: VM_HOSTNAME,
-      domain: VM_DOMAIN
+      domain: VM_DOMAIN,
+      publicdir: parameters["vm"]["publicdir"]
     }
   end
 

@@ -3,6 +3,7 @@
   sudo: true
   vars:
     hhvmphpswitcher: 127.0.0.1:9000
+    apacheversion: 2.2
   tasks:
     - name: sets hhvmphpswitcher if switcher is defined
       set_fact:
@@ -12,6 +13,10 @@
       set_fact:
         hhvmphpswitcher: php
       when: parameters['php'] is defined and parameters['php']['switcher'] is not defined
+    - name: sets apacheversion with "2.4" because the apache version is defined to 2.4
+      set_fact:
+        apacheversion: 2.4
+      when: parameters['apache'] is defined and parameters['apache']['version'] == '2.4'
   vars_files:
     - ../parameters.yml
     - vars/mysql.yml
@@ -19,11 +24,14 @@
     - vars/server.yml
   roles:
     - common
+    - role: nginx
+      when: parameters['nginx'] is defined
+    - role: apache
+      when: parameters['apache'] is defined
     - role: hhvm
       when: parameters['php']['switcher'] is defined and parameters['php']['switcher'] == 'hhvm'
     - role: php
       when: parameters['php'] is defined
-    - nginx
     - role: mysql
       when: parameters['mysql'] is defined
     - role: memcached
