@@ -44,21 +44,28 @@
   with_items: pecl_packages
   notify: php5-fpm restart
 
-- name: Enable extesion
+- name: Enable extension
   shell: php5enmod {{ item }}
   with_items: pecl_packages
   notify: php5-fpm restart
 
 - name: ensure timezone is set
-  lineinfile: dest=/etc/php5/cli/php.ini
-              regexp='date.timezone ='
-              line='date.timezone = {{ timezone }}'
-  lineinfile: dest=/etc/php5/fpm/php.ini
-              regexp='date.timezone ='
-              line='date.timezone = {{ timezone }}'
+  lineinfile: dest=/etc/php5/cli/php.ini regexp='date.timezone =' line='date.timezone = {{ timezone }}'
+  lineinfile: dest=/etc/php5/fpm/php.ini regexp='date.timezone =' line='date.timezone = {{ timezone }}'
   notify: php5-fpm restart
 
-- name: Install php apache module
-  apt: name=libapache2-mod-php5 state=present
-  when: parameters['apache'] is defined
-  notify: apache2 restart
+- name: Configure Xdebug
+  lineinfile: dest=/etc/php5/mods-available/xdebug.ini regexp={{ item }} line={{ item }}
+  with_items:
+    - 'xdebug.coverage_enable=1'
+    - 'xdebug.default_enable=1'
+    - 'xdebug.remote_enable=true'
+    - 'xdebug.remote_connect_back=true'
+    - 'xdebug.remote_host={{ php_xdebug_remote_host }}'
+    - 'xdebug.remote_port={{ php_xdebug_remote_port }}'
+    - 'xdebug.remote_handler=dbgp'
+    - 'xdebug.remote_log=/tmp/xdebug.log'
+    - 'xdebug.remote_autostart=false'
+    - 'xdebug.idekey="{{ php_xdebug_idekey }}"'
+    - 'xdebug.max_nesting_level={{ php_xdebug_max_nesting_level }}'
+  notify: php5-fpm restart

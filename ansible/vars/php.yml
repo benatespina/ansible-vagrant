@@ -1,3 +1,10 @@
-timezone: Europe/Madrid
+timezone: "{{ php.timezone | default('UTC') }}"
 php_ppa: "php5-{{ php.version | default(5.6) }}"
 pecl_packages: "{{ php.pecl }}"
+
+php_xdebug_version: "{{ php.xdebug.version | default(2.2.5) }}"
+php_xdebug_idekey: "{{ php.xdebug.ide_key | default('sublime.xdebug') }}"
+php_xdebug_max_nesting_level: "{{ php.xdebug.max_nesting_level | default(256) }}"
+
+php_xdebug_remote_host: "{{ php.xdebug.remote.host | default('localhost') }}"
+php_xdebug_remote_port: "{{ php.xdebug.remote.port | default('9000') }}"

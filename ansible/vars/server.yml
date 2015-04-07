@@ -1,3 +1,4 @@
-host: "{{ hostname }}.{{ domain }}"
+host: "{{ host_name }}.{{ domain }}"
 servername: "{{ host }} {{ ip }}"
-documentroot: "{{ hostpath }}/{{ hostname }}.{{ domain }}{{ publicdir }}"
+projectroot: "{{ host_path }}/{{ host_name }}.{{ domain }}"
+documentroot: "{{ projectroot }}{{ public_dir }}"

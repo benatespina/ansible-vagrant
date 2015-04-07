@@ -3,14 +3,15 @@ parameters = YAML.load_file "parameters.yml"
 
 VAGRANTFILE_API_VERSION = "2"
 VM_BOX = parameters["vm"]["box"]
-VM_HOSTNAME = parameters["vm"]["hostname"]
+VM_HOSTNAME = parameters["vm"]["host_name"]
 VM_DOMAIN = parameters["vm"]["domain"]
 VM_CPUS = parameters["vm"]["cpu"]
 VM_MEMORY = parameters["vm"]["memory"]
 VM_IP = parameters["vm"]["ip"]
 VM_PORT = parameters["vm"]["port"]
-VM_HOSTPATH = parameters["vm"]["hostpath"]
-VM_SYNCED_FOLDER = parameters["vm"]["syncedfolder"]
+VM_HOSTPATH = parameters["vm"]["host_path"]
+VM_SYNCED_FOLDER = parameters["vm"]["synced_folder"]
+VM_PUBLIC_DIR = parameters["vm"]["public_dir"]
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = VM_BOX
@@ -40,7 +41,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       hostpath: VM_HOSTPATH,
       hostname: VM_HOSTNAME,
       domain: VM_DOMAIN,
-      publicdir: parameters["vm"]["publicdir"]
+      publicdir: VM_PUBLIC_DIR
     }
   end
 

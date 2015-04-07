@@ -36,3 +36,12 @@
       when: parameters['mysql'] is defined
     - role: memcached
       when: parameters['memcached'] is defined
+
+  tasks:
+    - name: Add bash configuration
+      template: >
+        src="roles/common/templates/bash.tpl"
+        dest="/home/vagrant/.bash_aliases"
+        owner="root"
+        group="root"
+        mode=0644

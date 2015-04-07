@@ -24,6 +24,7 @@ This box contains the following:
     - php5-mongo
     - php5-redis
 * Nginx with SSL support
+* Apache
 * MySQL
 * Composer
 * Memcached
@@ -50,25 +51,37 @@ extension, modifying the values with your favorite preferences. The following co
 ```
 #### REQUIRED ####
 vm:
-  hostname:     app
-  domain:       localhost
-  hostpath:     /var/www
-  ip:           192.168.10.44
-  port:         8080
-  syncedfolder: nfs         # can be nfs, smb or rsync
-  box:          precise64
-  cpu:          1
-  memory:       512
+  host_name:     app
+  domain:        localhost
+  host_path:     /var/www
+  public_dir:    /web
+  ip:            192.168.10.44
+  port:          8080
+  synced_folder: nfs                                        # can be nfs, smb or rsync
+  box:           http://files.vagrantup.com/precise64.box
+  cpu:           1
+  memory:        512
 
 #### OPTIONAL ####
+nginx: ~
+apache:
+  version: 2.2                                              # can be 2.2 or 2.4
 php:
-  switcher: hhvm            # can be php or hhvm
-  version:  5.6             # can be 5.4, 5.5 or 5.6
+  switcher: hhvm                                            # can be php or hhvm
+  version:  5.6                                             # can be 5.4, 5.5 or 5.6
+  timezone: UTC
   pecl:
     - mongo
     - redis
+  xdebug:
+    version:           2.2.5
+    max_nesting_level: 256
+    ide_key:           sublime.xdebug
+    remote:
+      host:            localhost
+      port:            9001
 mysql:
-  version:       5.6        # can be 5.5, 5.6 or 5.7
+  version:       5.6                                        # can be 5.5, 5.6 or 5.7
   root_password: root
   user:          user
   password:      123
