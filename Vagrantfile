@@ -38,10 +38,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     ansible.extra_vars = {
       parameters: parameters,
       ip: VM_IP,
-      hostpath: VM_HOSTPATH,
-      hostname: VM_HOSTNAME,
+      host_path: VM_HOSTPATH,
+      host_name: VM_HOSTNAME,
       domain: VM_DOMAIN,
-      publicdir: VM_PUBLIC_DIR
+      public_dir: VM_PUBLIC_DIR
     }
   end
 
