@@ -36,3 +36,17 @@ mysql:
   password:      123
   database:      defaultDB
 memcached: ~
+nodejs:
+  version: 0.12.2
+  packages:
+    - gulp
+    - bower
+    - nodemon
+    - debug
+    - foreman
+ruby:
+  version: 1.9.3
+  gems:
+    - sass
+    - compass
+    - scss-lint

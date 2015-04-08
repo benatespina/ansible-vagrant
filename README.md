@@ -28,6 +28,8 @@ This box contains the following:
 * MySQL
 * Composer
 * Memcached
+* Node.js
+* Ruby
 
 Prerequisites
 -------------
@@ -87,6 +89,20 @@ mysql:
   password:      123
   database:      defaultDB
 memcached: ~
+nodejs:
+  version: 0.12.22
+  packages:
+    - gulp
+    - bower
+    - nodemon
+    - debug
+    - foreman
+ruby:
+  version: 1.9.3
+  gems:
+    - sass
+    - compass
+    - scss-lint
 ```
 
 Then, you have to build the *Vagrant* machine and then, you have to connect via **ssh** to the VM with the following commands:

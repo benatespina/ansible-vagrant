@@ -26,6 +26,15 @@
     - siege
     - vim
     - imagemagick
+    - make
+    - g++
+    - gcc
+    - libcurl4-openssl-dev
+    - libreadline-dev
+    - libsasl2-2
+    - libcurl3
+    - openssl
+    - libssl-dev
 
 - name: Get Composer
   run_once: true

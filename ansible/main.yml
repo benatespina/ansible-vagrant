@@ -22,6 +22,8 @@
     - vars/mysql.yml
     - vars/php.yml
     - vars/server.yml
+    - vars/ruby.yml
+    - vars/nodejs.yml
   roles:
     - common
     - role: nginx
@@ -36,7 +38,10 @@
       when: parameters['mysql'] is defined
     - role: memcached
       when: parameters['memcached'] is defined
-
+    - role: ruby
+      when: parameters['ruby'] is defined
+    - role: nodejs
+      when: parameters['nodejs'] is defined
   tasks:
     - name: Add bash configuration
       template: >
