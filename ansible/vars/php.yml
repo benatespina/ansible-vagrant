@@ -1,6 +1,6 @@
 timezone: "{{ php.timezone | default('UTC') }}"
 php_ppa: "php5-{{ php.version | default(5.6) }}"
-pecl_packages: "{{ php.pecl }}"
+pecl_packages: "{{ php.pecl | defaul([]) }}"
 
 php_xdebug_version: "{{ php.xdebug.version | default(2.2.5) }}"
 php_xdebug_idekey: "{{ php.xdebug.ide_key | default('sublime.xdebug') }}"
