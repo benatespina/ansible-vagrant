@@ -45,7 +45,7 @@ nodejs:
     - debug
     - foreman
 ruby:
-  version: 1.9.3
+  version: 2.1                                              # can be 1.8, 1.9.3, 2.0 or 2.1
   gems:
     - sass
     - compass
