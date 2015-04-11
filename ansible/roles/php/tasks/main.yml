@@ -66,6 +66,6 @@
     - 'xdebug.remote_handler=dbgp'
     - 'xdebug.remote_log=/tmp/xdebug.log'
     - 'xdebug.remote_autostart=false'
-    - 'xdebug.idekey="{{ php_xdebug_idekey }}"'
+    - 'xdebug.idekey={{ php_xdebug_idekey }}'
     - 'xdebug.max_nesting_level={{ php_xdebug_max_nesting_level }}'
   notify: php5-fpm restart

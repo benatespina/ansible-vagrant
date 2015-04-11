@@ -2,3 +2,5 @@ host: "{{ host_name }}.{{ domain }}"
 servername: "{{ host }} {{ ip }}"
 projectroot: "{{ host_path }}/{{ host_name }}.{{ domain }}"
 documentroot: "{{ projectroot }}{{ public_dir }}"
+
+apacheversion: "{{ apache.version | default(2.2) }}"
