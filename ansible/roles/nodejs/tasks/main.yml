@@ -9,7 +9,7 @@
   get_url: url={{ nodejs_tarball_url }} dest={{ nodejs_tmp_dir}}{{nodejs_file_name }}
   when: wanted_version_installed.rc == 1
 
-- name: "verify SHASUM
+- name: verify SHASUM
   shell: curl {{ nodejs_shasum_url }} | grep {{ nodejs_file_name }} | sha1sum -c chdir={{ nodejs_tmp_dir }}
   when: wanted_version_installed.rc == 1
 
