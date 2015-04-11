@@ -9,7 +9,7 @@ server {
     index   index.html index.htm index.php index.php?$query_string;
     rewrite ^(.*)$ /app_dev.php/$1 last;
   }
-  location ~ ^/(app|app_dev|app_test)\.php(/|$) {
+  location ~ ^/(app|app_dev|app_test|config)\.php(/|$) {
     root                    {{ documentroot }};
     include                 /etc/nginx/fastcgi_params;
     fastcgi_pass            {{ hhvmphpswitcher }};
@@ -17,6 +17,7 @@ server {
     fastcgi_read_timeout    3m;
     fastcgi_send_timeout    3m;
     fastcgi_split_path_info ^(.+\.php)(/.+)$;
+    fastcgi_param           SCRIPT_FILENAME $document_root$fastcgi_script_name;
     include                 fastcgi_params;
   }
   location ~ \.php$ {
