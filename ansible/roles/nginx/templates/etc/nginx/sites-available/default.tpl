@@ -10,18 +10,21 @@ server {
     rewrite ^(.*)$ /app_dev.php/$1 last;
   }
   location ~ ^/(app|app_dev|app_test|config)\.php(/|$) {
-    root                    {{ documentroot }};
-    include                 /etc/nginx/fastcgi_params;
-    fastcgi_pass            {{ hhvmphpswitcher }};
-    fastcgi_connect_timeout 3m;
-    fastcgi_read_timeout    3m;
-    fastcgi_send_timeout    3m;
-    fastcgi_split_path_info ^(.+\.php)(/.+)$;
-    fastcgi_param           SCRIPT_FILENAME $document_root$fastcgi_script_name;
-    include                 fastcgi_params;
+    root                     {{ documentroot }};
+    include                  /etc/nginx/fastcgi_params;
+    fastcgi_buffers          8 256k;
+    fastcgi_buffer_size      128k;
+    fastcgi_intercept_errors on;
+    fastcgi_pass             {{ hhvmphpswitcher }};
+    fastcgi_connect_timeout  3m;
+    fastcgi_read_timeout     3m;
+    fastcgi_send_timeout     3m;
+    fastcgi_split_path_info  ^(.+\.php)(/.+)$;
+    include                  fastcgi_params;
+    fastcgi_param            SCRIPT_FILENAME $document_root$fastcgi_script_name;
   }
   location ~ \.php$ {
-    root {{ documentroot }};
+    root                     {{ documentroot }};
     proxy_intercept_errors   on;
     error_page               500 501 502 503 = @fpm-fallback;
     fastcgi_buffers          8 256k;
