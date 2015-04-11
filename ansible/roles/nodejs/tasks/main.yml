@@ -5,19 +5,19 @@
   ignore_errors: True
   changed_when: "wanted_version_installed.rc == 1"
 
-- name: download nodejs {{ nodejs_version_tag }}
+- name: download
   get_url: url={{ nodejs_tarball_url }} dest={{ nodejs_tmp_dir}}{{nodejs_file_name }}
   when: wanted_version_installed.rc == 1
 
-- name: verify SHASUM of nodejs {{nodejs_version_tag}}
+- name: "verify SHASUM
   shell: curl {{ nodejs_shasum_url }} | grep {{ nodejs_file_name }} | sha1sum -c chdir={{ nodejs_tmp_dir }}
   when: wanted_version_installed.rc == 1
 
-- name: unpack nodejs {{ nodejs_version_tag }}
+- name: unpack
   command: tar -xvzf {{ nodejs_file_name }} chdir={{ nodejs_tmp_dir }}
   when: wanted_version_installed.rc == 1
 
-- name: compile and install nodejs {{ nodejs_version_tag }}
+- name: compile and install
   shell: ./configure --prefix={{ nodejs_path }} && make && make install chdir={{ nodejs_tmp_dir }}{{ nodejs_file_tag }}
   sudo: true
   when: wanted_version_installed.rc == 1
